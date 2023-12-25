@@ -95,27 +95,31 @@ class Chat : AppCompatActivity() {
 
 
 
-        val apiKey = "Bearer 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"
+        val apiKey = BuildConfig.API_KEY
 
 
-        lifecycleScope.launch(Dispatchers.IO){
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val responses = retrofit.createChatCompletion(requestBody, "application/json", apiKey)
+                val textResponse = responses.choices.firstOrNull()?.message?.content
 
-            val responses = retrofit.createChatCompletion(
-                requestBody,
-                "application/json",
-                apiKey
-            )
-
-            val textResponse = responses.choices.first().message.content
-
-
-            withContext(Dispatchers.Main){
-
-                chatData.add(ChatData(textResponse, "chatBot"))
-                adapter.notifyItemInserted(chatData.size - 1)
-                binding.chatRecyclerView.smoothScrollToPosition(chatData.size - 1);
+                if (textResponse.isNullOrEmpty()) {
+                    Log.d("unsuccesfull", "Response is empty or null")
+                    // Handle empty or null response
+                } else {
+                    Log.d("succesfull", textResponse)
+                    withContext(Dispatchers.Main) {
+                        chatData.add(ChatData(textResponse, "chatBot"))
+                        adapter.notifyItemInserted(chatData.size - 1)
+                        binding.chatRecyclerView.smoothScrollToPosition(chatData.size - 1)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("NetworkError", "Error: ${e.message}", e)
+                // Handle the network exception here
             }
         }
+
 
 
 

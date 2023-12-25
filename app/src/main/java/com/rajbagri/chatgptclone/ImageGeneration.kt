@@ -87,7 +87,7 @@ class ImageGeneration : AppCompatActivity() {
         )
 
 
-        val apiKey = "Bearer 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"
+        val apiKey = BuildConfig.API_KEY
 
 
         lifecycleScope.launch(Dispatchers.IO){

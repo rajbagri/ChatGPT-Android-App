@@ -1,6 +1,7 @@
 package com.rajbagri.chatgptclone
 
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AbsListView.RecyclerListener
@@ -87,8 +88,7 @@ class ImageGeneration : AppCompatActivity() {
         )
 
 
-        val apiKey = BuildConfig.API_KEY
-
+        val apiKey = "Bearer ${BuildConfig.API_KEY}"
 
         lifecycleScope.launch(Dispatchers.IO){
 

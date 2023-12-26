@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
-import com.rajbagri.chatgptclone.databinding.ActivityChatBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,6 +23,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+
+import com.rajbagri.chatgptclone.databinding.ActivityChatBinding
 
 class Chat : AppCompatActivity() {
     private lateinit var binding: ActivityChatBinding
@@ -95,7 +96,7 @@ class Chat : AppCompatActivity() {
 
 
 
-        val apiKey = BuildConfig.API_KEY
+        val apiKey = "Bearer ${BuildConfig.API_KEY}"
 
 
         lifecycleScope.launch(Dispatchers.IO) {
